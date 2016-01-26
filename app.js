@@ -2,8 +2,10 @@ var express = require('express');
 
 var app = express();
 
+app.set("view engine", "jade");
+
 app.get("/", function(req,res) {
-	res.end("Hola Mundo");
+	res.render("index");
 });
 
 app.listen(3000);
