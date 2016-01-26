@@ -1,6 +1,22 @@
 doctype html
 html(lang="en")
   head
-    title Mi Primera Página Web
+    title Panda world!
+    meta(charset="utf-8")
+    link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8")
+    link(rel="stylesheet" href="css/main.css" media="screen" title="no title" charset="utf-8")
+    link(rel="stylesheet" href="css/animate.css" media="screen" title="no title" charset="utf-8")
+    link(href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css')
   body
-    h1 Hola Mundo
+    div(class="col-md-3 center-block delete-float text-center delete-space")
+      img(src="img/panda.png" alt="" class="animated fadeIn")
+      h1(class="pacifico big green animated fadeIn delay-1") Animal World
+      div(class="animated fadeInDown delay-2")
+        h2 Our panda bears!
+        nav(class="middle")
+          a(href="home.html" class="right-space") Home
+          a(href="aboutus.html" class="right-space") About us
+          a(href="contact.html") Contact
+    script(scr="https://code.jquery.com/jquery-2.1.1.min.js")
+    script(scr="js/main.js")
