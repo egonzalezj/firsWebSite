@@ -1,0 +1,15 @@
+extends ../layout.jade
+block content
+  div(class="col-md-5 center-block no-float top-space text-left")
+    h1 Agregar Producto
+    form(method="post" action="/menu" style="margin-top:1.5em;")
+      div(class="form-group")
+        label Name
+        input(type="text" name="title" placeholder="Product name" class="form-control")
+        label Description
+        textarea(name="description" placeholder="Product description" class="form-control")
+        label Pricing
+        input(type="number" name="pricing" placeholder="Pricing" class="form-control")
+        label Password
+        input(type="password" name="password" placeholder="Password" class="form-control")
+    

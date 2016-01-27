@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 app.get("/", function(req,res) {
 
-	var data = {
+	/*var data = {
 		title: "Mi primer súper producto",
 		description: "Una gran compra",
 		imageUrl: "data.png",
@@ -38,9 +38,13 @@ app.get("/", function(req,res) {
 
 	product.save(function(err) {
 		console.log(product);
-	});
+	});*/
 
 	res.render("index");
+});
+
+app.get("/menu/new", function(req, res){
+	res.render("menu/new")
 });
 
 app.listen(3000);
