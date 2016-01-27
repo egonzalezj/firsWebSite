@@ -1,15 +1,13 @@
 var express = require('express');
-
 var mongoose = require('mongoose')
+var bodyParser = require('body-parser')
 
 var app = express();
 
 mongoose.connect("mongodb://localhost/firstWebsite")
-// JSON Object
-//{
-//	title: "Mi primer producto"
-//	description: "Un super producto"
-//}
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 //Define schema of products
 var productSchema = {
@@ -25,7 +23,7 @@ app.set("view engine", "jade");
 
 app.use(express.static("public"));
 
-app.get("/", function(req,res) {
+app.get("/", function(req, res) {
 
 	/*var data = {
 		title: "Mi primer súper producto",
@@ -43,7 +41,28 @@ app.get("/", function(req,res) {
 	res.render("index");
 });
 
-app.get("/menu/new", function(req, res){
+app.post("/menu", function(req, res) {
+	if(req.body.password == 12345) {
+		var data = {
+			title: req.body.title,
+			description: req.body.description,
+			imageUrl: "data.png",
+			pricing: req.body.pricing
+		}
+
+		var product = new Product(data);
+
+		product.save(function(err) {
+			console.log(product);
+			res.render("index");
+		});
+	}
+	else {
+		res.render("menu/new")
+	}
+});
+
+app.get("/menu/new", function(req, res) {
 	res.render("menu/new")
 });
 
