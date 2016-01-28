@@ -1,6 +1,14 @@
 var express = require('express');
-var mongoose = require('mongoose')
-var bodyParser = require('body-parser')
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+  cloud_name: 'ddwkf5i3u',
+  api_key: '852328578962597',
+  api_secret: 'bQ-858iTtzbQVUP3JipWzeJ7i2A'
+});
 
 var app = express();
 
@@ -8,6 +16,7 @@ mongoose.connect("mongodb://localhost/firstWebsite")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(multer({dest:"./uploads"}));
 
 //Define schema of products
 var productSchema = {
@@ -24,21 +33,16 @@ app.set("view engine", "jade");
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-
-	/*var data = {
-		title: "Mi primer súper producto",
-		description: "Una gran compra",
-		imageUrl: "data.png",
-		pricing: 10
-	}
-
-	var product = new Product(data);
-
-	product.save(function(err) {
-		console.log(product);
-	});*/
-
 	res.render("index");
+});
+
+app.get("/menu", function(req, res) {
+  Product.find(function(err, document) {
+    if(err) {
+      console.log(err);
+    }
+    res.render("menu/index", {products: document})
+  });
 });
 
 app.post("/menu", function(req, res) {
@@ -52,10 +56,20 @@ app.post("/menu", function(req, res) {
 
 		var product = new Product(data);
 
-		product.save(function(err) {
+    cloudinary.uploader.upload(req.files.image_avatar.path,
+      function(result) {
+        product.imageUrl = result.url;
+        product.save(function(err) {
+          console.log(product);
+          res.render("index");
+        });
+      }
+    );
+
+		/*product.save(function(err) {
 			console.log(product);
 			res.render("index");
-		});
+		});*/
 	}
 	else {
 		res.render("menu/new")
